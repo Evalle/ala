@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-''' 
+'''
 Usage:
     ala.py some_apache_logfile.log
 '''
@@ -8,11 +8,17 @@ import sys
 
 infile = sys.argv[1]
 
-log_file = open(infile, 'r')
+try:
+    log_file = open(infile, 'r')
+except:
+    print('No such file')
+    sys.exit(1)
+
 
 def log_to_dic(line):
     split_line = line.split()
-    return {'remote host': split_line[0], 'bytes': split_line[9]}
+    return {'host': split_line[0], 'bytes': split_line[9]}
+
 
 def open_log(log):
     for line in log:
